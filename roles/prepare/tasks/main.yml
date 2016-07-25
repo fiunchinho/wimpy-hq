@@ -1,0 +1,12 @@
+---
+
+- shell: pwd
+  register: current_path
+  changed_when: false
+- include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_env.PWD }}/deploy/deploy.yml"
+   - "default_vars.yml"
+- set_fact:
+    wimpy_dockerfile: "{{ ansible_env.PWD }}/docker-compose-{{ wimpy_deployment_environment }}.yml"
+
